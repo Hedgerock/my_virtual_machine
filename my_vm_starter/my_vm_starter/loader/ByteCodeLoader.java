@@ -67,7 +67,10 @@ public class ByteCodeLoader {
             ctx.addFunction(functionClass);
         }
 
-        functionClass = new FunctionClass(name);
+        int argc = Integer.parseInt(instruction[2]);
+        int varc = Integer.parseInt(instruction[3]);
+
+        functionClass = new FunctionClass(name, argc, varc);
     }
 
     private void executeInstructionForComments(String[] instruction) {/* TODO add case for ;*/}

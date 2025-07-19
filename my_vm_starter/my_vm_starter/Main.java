@@ -7,20 +7,18 @@ import my_vm_starter.loader.ByteCodeLoader;
 public class Main {
 
     static String test = """
-            fun main
+            fun main 0 1
                 ld 7
+                put 0
                 ld 5
-                add
-                deb
-                ld 2
-                sub
-                log
                 invoke echo
+                ld 8
+                get 0
+                add
+                log
             
-            fun echo
-                ld 5
-                deb
-                deb
+            fun echo 1 1
+                get 0
                 log
             """;
 

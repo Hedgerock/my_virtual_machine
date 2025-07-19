@@ -14,7 +14,7 @@ public final class Invoke extends VMInstruction {
 
     @Override
     protected void execute() {
-        ctx.getFunctionById(id).execute();
+        ctx.invoke(id);
     }
 
     @Override

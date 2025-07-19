@@ -7,10 +7,12 @@ import java.util.List;
 
 public record FunctionClass(
         String name,
+        int argumentCounter,
+        int variablesCounter,
         List<VMInstruction> instructions
 ) {
-    public FunctionClass(String name) {
-        this(name, new LinkedList<>());
+    public FunctionClass(String name, int argumentCounter, int variablesCounter) {
+        this(name, argumentCounter, variablesCounter,new LinkedList<>());
     }
 
     public void execute() {

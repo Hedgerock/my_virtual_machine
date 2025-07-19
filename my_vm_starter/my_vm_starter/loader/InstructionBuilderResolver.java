@@ -13,18 +13,20 @@ public final class InstructionBuilderResolver {
     static {
         PackageScanner packageScanner = new PackageScanner("my_vm_loading.loading.builders");
         packageScanner.findImplementation(InstructionBuilder.class)
-                .forEach(clazz -> {
-            if (clazz.isAnnotationPresent(Instruction.class)) {
-                String name = clazz.getDeclaredAnnotation(Instruction.class).value();
+                .forEach(InstructionBuilderResolver::initializeBuilders);
 
-                try {
-                    builders.put(name, clazz.getDeclaredConstructor().newInstance());
-                } catch (ReflectiveOperationException e) {
-                    throw new RuntimeException(e);
-                }
+    }
+
+    private static void initializeBuilders(Class<? extends InstructionBuilder> clazz) {
+        if (clazz.isAnnotationPresent(Instruction.class)) {
+            String name = clazz.getDeclaredAnnotation(Instruction.class).value();
+
+            try {
+                builders.put(name, clazz.getDeclaredConstructor().newInstance());
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
             }
-        });
-
+        }
     }
 
     public static InstructionBuilder resolve(String instructionName) {

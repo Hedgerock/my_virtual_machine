@@ -13,5 +13,7 @@ module my.vm.loading {
             my_vm_loading.loading.builders.SubBuilder,
             my_vm_loading.loading.builders.DebugBuilder,
             my_vm_loading.loading.builders.DivBuilder,
-            my_vm_loading.loading.builders.MulBuilder;
+            my_vm_loading.loading.builders.MulBuilder,
+            my_vm_loading.loading.builders.PutBuilder,
+            my_vm_loading.loading.builders.GetBuilder;
 }
