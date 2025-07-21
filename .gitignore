@@ -5,6 +5,8 @@ out/
 build/
 .idea
 *.iml
+jar/
+*.exe
 main.pu
 
 ### Eclipse ###
