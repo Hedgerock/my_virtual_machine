@@ -1,63 +1,47 @@
 package my.vm.compiler;
 
-import java.util.*;
+import java.util.List;
 
 public class Compiler {
-    private static final String CONSTANT_TABLE_KEY_WORD = "invoke";
+    private Function currentFunction;
+    private String code;
+    private List<String> listAfterCompileMethod; //TODO mb rename
 
-    private static final int CONSTANT_TABLE_KEY_WORD_SIZE = CONSTANT_TABLE_KEY_WORD.length();
-    private static final int CONSTANT_TABLE_KEY_WORD_SIZE_INDEX_VALUE = CONSTANT_TABLE_KEY_WORD_SIZE + 1;
+    private Function parseFuncDeclaration(String funcDeclaration) {
+        String[] decls = funcDeclaration.split("\\(");
 
-    String code;
+        var funName = decls[0].trim();
+        Function fun = new Function(funName);
 
-    private final List<String> constants = new LinkedList<>();
-    private final Set<String> added = new HashSet<>();
+        String args = decls[1].split("\\)")[0].trim();
 
-    public String getConstantTable() {
-        code.lines()
-                .map(String::trim)
-                .filter(this::initFilterChain)
-                .map(s -> s.substring(CONSTANT_TABLE_KEY_WORD_SIZE_INDEX_VALUE))
-                .forEach(constants::add);
+        int startIdx = 0;
 
-        initConstantIndexing();
-
-        StringJoiner sj = new StringJoiner(
-                "\n",
-                "% " + constants.size() + "\n",
-                "\n%\n"
-        );
-
-        constants.forEach(sj::add);
-
-        return sj + code;
-    }
-
-    private void initConstantIndexing() {
-        int i = 0;
-
-        for (String currentConstant: constants) {
-            code = code.replace(
-                    String.format("%s %s", CONSTANT_TABLE_KEY_WORD, currentConstant),
-                    String.format("%s #%d", CONSTANT_TABLE_KEY_WORD, i++)
-            );
+        for (int i = 0; i < args.length(); ++i) {
+            if (args.charAt(i) == ',') {
+                String argName = args.substring(startIdx, i).trim();
+                fun.addVar(argName);
+                startIdx = i;
+            } else {
+                //Do nothing
+            }
         }
+
+        String lastArg = args.substring(startIdx).trim();
+
+        if (!lastArg.isEmpty()) {
+            fun.addVar(lastArg);
+        }
+
+        return new Function(fun, fun.variables().size());
     }
 
-    private String getTarget(String s) {
-        return s.substring(0, CONSTANT_TABLE_KEY_WORD_SIZE);
-    }
+    public List<String> compile() {
+        this.code.lines()
+                .forEach( line -> {
+                    // TODO some magic
+                });
 
-    private boolean initFilterChain(String s) {
-
-        return !s.isEmpty()
-                && s.length() > CONSTANT_TABLE_KEY_WORD_SIZE_INDEX_VALUE
-                && CONSTANT_TABLE_KEY_WORD.equals(getTarget(s))
-                && added.add(s);
-    }
-
-    public Compiler setCode(String code) {
-        this.code = code;
-        return this;
+        return listAfterCompileMethod;
     }
 }

@@ -10,11 +10,14 @@ public class StackFrame {
     private final FunctionClass fun;
     private VMInstruction currInstruction;
     private final long[] variables;
+    private final Stack<Label> labelStack;
 
     private StackFrame(Stack<Long> stack, FunctionClass fun, long[] variables) {
         this.stack = stack;
         this.fun = fun;
         this.variables = variables;
+        this.labelStack = new Stack<>();
+        this.labelStack.push(fun.labels().values().iterator().next());
     }
 
     public StackFrame(FunctionClass fun, long[] variables) {
@@ -49,10 +52,30 @@ public class StackFrame {
     }
 
     public void execute() {
-        fun.instructions().forEach(vmInstruction -> {
-            this.currInstruction = vmInstruction;
-            vmInstruction.invoke();
-        });
+        TOP:
+        while (!this.labelStack.isEmpty()) {
+            Label label = this.labelStack.peek();
+
+            for (VMInstruction vmInstruction: label.code()) {
+                this.currInstruction = vmInstruction;
+
+                if (labelStack.isEmpty()) break TOP;
+
+                vmInstruction.invoke();
+            }
+
+            if (labelStack.isEmpty()) break;
+
+            this.labelStack.pop();
+        }
+    }
+
+    public void newLabel(Label label) {
+        this.labelStack.push(label);
+    }
+
+    public void clearStack() {
+        this.labelStack.clear();
     }
 
     public long pop() {

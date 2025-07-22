@@ -3,20 +3,20 @@ package my.vm.internal.instructions.special;
 import my.vm.internal.Context;
 import my.vm.internal.instructions.VMInstruction;
 
-public final class Invoke extends VMInstruction {
+public final class Ret extends VMInstruction {
     private final Context ctx;
-    private final long id;
 
-    public Invoke(Context ctx, long id) {
+    public Ret(Context ctx) {
         this.ctx = ctx;
-        this.id = id;
     }
 
     @Override
     protected void execute() {
-        ctx.invoke(id);
+        ctx.stack().peek().clearStack();
+        ctx.returnFuncResult();
     }
 
     @Override
-    protected void popArgs() {}
+    protected void popArgs() {
+    }
 }

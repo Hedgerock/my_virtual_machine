@@ -6,7 +6,7 @@ import my.vm.loading.loading.InstructionBuilder;
 import my.vm.loading.utils.Instruction;
 
 @Instruction("deb")
-public class DebugBuilder extends InstructionBuilder {
+public final class DebugBuilder extends InstructionBuilder {
 
     @Override
     protected VMInstruction construct() {

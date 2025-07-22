@@ -1,16 +1,16 @@
 package my.vm.loading.loading.builders;
 
-import my.vm.internal.instructions.special.Log;
 import my.vm.internal.instructions.VMInstruction;
+import my.vm.internal.instructions.special.Ret;
 import my.vm.loading.loading.InstructionBuilder;
 import my.vm.loading.utils.Instruction;
 
-@Instruction("log")
-public final class LogBuilder extends InstructionBuilder {
+@Instruction("ret")
+public final class RetBuilder extends InstructionBuilder {
 
     @Override
     protected VMInstruction construct() {
-        return new Log(ctx);
+        return new Ret(ctx);
     }
 
     @Override

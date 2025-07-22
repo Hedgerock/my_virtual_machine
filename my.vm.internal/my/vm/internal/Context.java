@@ -40,6 +40,11 @@ public record Context(
         stack.pop();
     }
 
+    public void returnFuncResult() {
+       long value = stack.peek().top();
+       stack.get(stack.size() - 2).push(value);
+    }
+
     public void executeFrame() {
         try {
             stack.peek().execute();
@@ -107,5 +112,13 @@ public record Context(
 
 
         executeFrame();
+    }
+
+    public Label getLabel(String name) {
+        Label label = this.stack.peek().fun().labels().get(name);
+
+        if (label == null) throw new IllegalArgumentException("Label " + name + " not found");
+
+        return label;
     }
 }

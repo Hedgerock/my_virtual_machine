@@ -2,11 +2,13 @@ package my.vm.loading.loading;
 
 import my.vm.internal.Context;
 import my.vm.internal.instructions.VMInstruction;
+import my.vm.loading.loading.builders.*;
 import my.vm.loading.utils.Instruction;
 
 import java.util.Arrays;
 
-public abstract class InstructionBuilder {
+public sealed abstract class InstructionBuilder permits AddBuilder, DebugBuilder, DivBuilder, GetBuilder, InvokeBuilder, JmpBuilder, JmpfBuilder, LoadBuilder, LogBuilder, LtBuilder, MulBuilder, PutBuilder, RetBuilder, SubBuilder
+{
     protected Context ctx;
     protected String[] args;
     protected int line;

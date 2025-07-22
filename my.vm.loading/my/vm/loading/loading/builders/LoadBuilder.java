@@ -6,7 +6,7 @@ import my.vm.loading.loading.InstructionBuilder;
 import my.vm.loading.utils.Instruction;
 
 @Instruction("ld")
-public class LoadBuilder extends InstructionBuilder {
+public final class LoadBuilder extends InstructionBuilder {
 
     @Override
     protected VMInstruction construct() {

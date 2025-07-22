@@ -5,8 +5,9 @@ import my.vm.internal.instructions.ariphmetic.Add;
 import my.vm.internal.instructions.ariphmetic.Div;
 import my.vm.internal.instructions.ariphmetic.Mul;
 import my.vm.internal.instructions.ariphmetic.Sub;
+import my.vm.internal.instructions.conditional.LessThan;
 
-public abstract sealed class BinaryInstruction extends VMInstruction permits Add, Div, Mul, Sub {
+public abstract sealed class BinaryInstruction extends VMInstruction permits Add, Div, Mul, Sub, LessThan {
     protected Context ctx;
     protected long rhs;
     protected long lhs;

@@ -6,7 +6,7 @@ import my.vm.loading.loading.InstructionBuilder;
 import my.vm.loading.utils.Instruction;
 
 @Instruction("put")
-public class PutBuilder extends InstructionBuilder {
+public final class PutBuilder extends InstructionBuilder {
     @Override
     protected VMInstruction construct() {
         return new Put(ctx, Long.parseLong(args[0]));

@@ -1,6 +1,6 @@
 package my.vm.starter;
 
-import my.vm.compiler.Compiler;
+import my.vm.compiler.Preprocessor;
 import my.vm.internal.Context;
 import my.vm.starter.loader.ByteCodeLoader;
 
@@ -23,7 +23,7 @@ public class Main {
         if (args.length == 0) throw new IllegalArgumentException("No arguments found " + Arrays.toString(args));
 
         String test = getCode(args[0]);
-        Compiler cp = new Compiler().setCode(test);
+        Preprocessor cp = new Preprocessor().setCode(test);
         String constantTable = cp.getConstantTable();
 
         Context ctx = new Context();

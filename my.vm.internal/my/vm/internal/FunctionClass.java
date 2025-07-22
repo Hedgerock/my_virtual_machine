@@ -1,21 +1,18 @@
 package my.vm.internal;
 
-import my.vm.internal.instructions.VMInstruction;
-
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 public record FunctionClass(
         String name,
         int argumentCounter,
         int variablesCounter,
-        List<VMInstruction> instructions
+        LinkedHashMap<String, Label> labels
 ) {
     public FunctionClass(String name, int argumentCounter, int variablesCounter) {
-        this(name, argumentCounter, variablesCounter,new LinkedList<>());
+        this(name, argumentCounter, variablesCounter,new LinkedHashMap<>());
     }
 
-    public void addInstruction(VMInstruction instruction) {
-        instructions.add(instruction);
+    public void addLabel(Label label) {
+        labels.put(label.name(), label);
     }
 }

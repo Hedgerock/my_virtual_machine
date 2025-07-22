@@ -7,6 +7,7 @@ module my.vm.loading {
     exports my.vm.loading.utils;
     exports my.vm.loading.loading.builders;
     exports my.vm.loading.loading;
+    exports my.vm.loading.utils.exceptions;
 
     provides InstructionBuilder with
             InvokeBuilder,
@@ -18,5 +19,9 @@ module my.vm.loading {
             DivBuilder,
             MulBuilder,
             PutBuilder,
-            GetBuilder;
+            GetBuilder,
+            RetBuilder,
+            LtBuilder,
+            JmpBuilder,
+            JmpfBuilder;
 }
